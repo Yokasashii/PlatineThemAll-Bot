@@ -31,11 +31,11 @@ def load_teams():
         with open(DATA_FILE, "r") as f:
             data = json.load(f)
         for nom, info in data.items():
-            teams[nom] = Teams(nom)
-            teams[nom].points = info["points"]
+            teams[nom] = Teams(nom, info["points"])
     else:
         with open(DATA_FILE, "w") as f:
             json.dump({}, f)
+
 
 def save_teams():
     data = {nom: {"points": team.points} for nom, team in teams.items()}
