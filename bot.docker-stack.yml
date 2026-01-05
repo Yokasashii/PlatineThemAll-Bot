@@ -2,13 +2,13 @@ version: "3.9"
 
 services:
   bot:
-    image: pta:latest
+    image: ghcr.io/yokasashii/platinethemall-bot:latest
     secrets:
       - source: pta-bot-token
         target: discord_token
     volumes:
       - type: bind
-        source: ./teams.json # /var/www/infra/service/pta-bot/
+        source: /home/skyvence/infra/service/pta-bot/teams.json
         target: /app/teams.json
     deploy:
       replicas: 1
@@ -18,6 +18,9 @@ services:
         order: start-first
         failure_action: rollback
         monitor: 30s
+      labels:
+        - "shepherd.enable=true"
+        - "shepherd.auth.config=default"
     networks: [pta-net]
 
 networks:
