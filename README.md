@@ -6,6 +6,7 @@ The “Platine-Them-All” bot supports an event created by streamer Nighting.
 
 - [About](#about)
 - [Bot control](#bot_control)
+- [How to Use](#how_to_use)
 - [License](#license)
 - [Contact](#contact)
 
@@ -22,6 +23,18 @@ Commands that the bot takes into account:
 - **/add-points**: Add points to a team
 - **/remove-points**: Remove points to a team
 - **/classement**: Display the ranking of the best teams
+
+## How to Use
+
+- Create a brand new bot from the Discord developer website.
+- Add it to the Discord server of your choice.
+- Copy the repo and open it.
+- Find its token, then create a new .env file and write: “DISCORD_TOKEN = (your bot's token).”
+- Next, connect to the environment with the command: venv\Scripts\activate.
+- Then launch your bot with the command: python .\bot.py.
+
+You should see it connect and the commands work.
+
 
 ## License 
 
