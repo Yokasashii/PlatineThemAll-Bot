@@ -227,33 +227,28 @@ async def team_classement(interaction: discord.Interaction):
         await interaction.response.send_message("Il n'y a pas d'équipe actuellement")
         return
     classement = sorted(teams.values(), key=lambda team: team.points, reverse=True)
-    teams_per_embed = 25
-    embeds = []
-    for i in range(0, len(classement), teams_per_embed):
-        chunk = classement[i:i + teams_per_embed]
-        if len(embeds) == 0:
-            embed = discord.Embed(
-                title="🏆 --- Classement des équipes --- 🏆",
-                description="Classement des équipes par rapport à leurs points !",
-                color=discord.Color.blue(),
-            )
-        else:
-            embed = discord.Embed(
-                title=f"🏆 --- Classement des équipes (suite) --- 🏆",
-                description=f"Page {len(embeds) + 1}",
-                color=discord.Color.blue(),
-            )
+
+    # Discord limite les embeds à 25 champs par message.
+    max_fields = 25
+
+    for i in range(0, len(classement), max_fields):
+        chunk = classement[i : i + max_fields]
+        title = (
+            "🏆 --- Classement des équipes --- 🏆"
+            if i == 0
+            else "🏆 --- Suite du classement --- 🏆"
+        )
+        embed = discord.Embed(title=title, color=discord.Color.blue())
         for index, team in enumerate(chunk, start=i + 1):
             embed.add_field(
-                name=f"{index}. {team.nom}", 
-                value=f"{team.points} points", 
-                inline=False
+                name=f"{index}. {team.nom}",
+                value=f"{team.points} points",
+                inline=False,
             )
-        embeds.append(embed)
-    embeds = embeds[:3]
-    await interaction.response.send_message(embed=embeds[0])
-    if len(embeds) > 1:
-        for embed in embeds[1:]:
+
+        if i == 0:
+            await interaction.response.send_message(embed=embed)
+        else:
             await interaction.followup.send(embed=embed)
 
 
