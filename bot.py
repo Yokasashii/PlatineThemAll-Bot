@@ -245,8 +245,6 @@ async def team_classement(interaction: discord.Interaction):
                 value=f"{team.points} points",
                 inline=False,
             )
-            if index >= 24:
-                break
 
         if i == 0:
             await interaction.response.send_message(embed=embed)
